@@ -2,15 +2,17 @@
 # AnimalWhistle Plugin Configuration
 # ====================================
 
-# Item path (from MMOItems)
+# Item path
 items:
   animal-whistle: "m.pets.animal_whistle"
+  # Vanilla item example: "v.iron_ingot"
+  # ItemsAdder item example: ia.tfmc.animal_whistle
 
 # Feature settings
 settings:
-  detection-radius: 50.0    # Radius in blocks to detect animals
+  detection-radius: 64.0    # Radius in blocks to detect animals
   glow-duration: 5          # Duration in seconds for the glowing effect
-  whitelisted-animals:      # Entity types that will be highlighted (use Bukkit EntityType names)
+  whitelisted-animals:      # Entity types that will be highlighted
     - HORSE
     - DONKEY
     - MULE
@@ -19,6 +21,6 @@ settings:
 
 # Sound settings
 sound:
-  type: "BLOCK_NOTE_BLOCK_FLUTE"    # Sound to play when whistle is used
-  volume: 1.0                       # Volume of the sound (0.0 - 1.0+)
-  pitch: 1.5                        # Pitch of the sound (0.5 - 2.0)
+  type: "ITEM_GOAT_HORN_SOUND_6"
+  volume: 4.0               # 1 Volume = 16 blocks of range (in this case, 64 blocks)
+  pitch: 2.0                # Range between 0.5 (half speed) and 2.0 (double speed)
