@@ -9,6 +9,63 @@ A Minecraft Paper plugin that lets players use a special whistle item to highlig
 - Plays a configurable sound when the whistle is used
 - Whitelist of entity types that will be affected
 
+## Architecture
+
+The plugin follows a simple modular architecture with clear separation of concerns:
+
+```mermaid
+classDiagram
+    class AnimalWhistle {
+        -AnimalWhistle instance
+        -ItemAPI api
+        +onEnable() void
+        +onDisable() void
+        +getInstance() AnimalWhistle
+        +getApi() ItemAPI
+    }
+
+    class AnimalWhistleConfig {
+        -JavaPlugin plugin
+        -String animalWhistlePath
+        -double detectionRadius
+        -int glowDuration
+        -List~String~ whitelistedAnimals
+        -String whistleSound
+        -float soundVolume
+        -float soundPitch
+        +AnimalWhistleConfig(plugin: JavaPlugin)
+        +getAnimalWhistlePath() String
+        +getDetectionRadius() double
+        +getGlowDuration() int
+        +getWhitelistedAnimals() List~String~
+        +getWhistleSound() String
+        +getSoundVolume() float
+        +getSoundPitch() float
+    }
+
+    class WhistleInteractListener {
+        -JavaPlugin plugin
+        -ItemAPI api
+        -AnimalWhistleConfig config
+        +WhistleInteractListener(plugin: JavaPlugin, api: ItemAPI, config: AnimalWhistleConfig)
+        +onPlayerInteract(event: PlayerInteractEvent) void
+        -isAnimalWhistle(item: ItemStack) boolean
+        -playWhistleSound(player: Player) void
+    }
+
+    AnimalWhistle "1" --> "1" AnimalWhistleConfig : creates
+    AnimalWhistle "1" --> "1" WhistleInteractListener : registers
+    
+    WhistleInteractListener "1" --> "1" AnimalWhistleConfig : uses
+    WhistleInteractListener "1" --> "1" ItemAPI : uses
+```
+
+### Component Descriptions
+
+- **AnimalWhistle**: Main plugin class that initializes the ItemAPI and registers the event listener
+- **AnimalWhistleConfig**: Configuration manager that loads and provides access to all plugin settings
+- **WhistleInteractListener**: Event listener that handles right-click interactions with the whistle, validates the item, plays sound, and applies glowing effects to nearby whitelisted animals
+
 ## Dependencies
 
 | Dependency | Required |

@@ -1,0 +1,44 @@
+classDiagram
+    class AnimalWhistle {
+        -AnimalWhistle instance
+        -ItemAPI api
+        +onEnable() void
+        +onDisable() void
+        +getInstance() AnimalWhistle
+        +getApi() ItemAPI
+    }
+
+    class AnimalWhistleConfig {
+        -JavaPlugin plugin
+        -String animalWhistlePath
+        -double detectionRadius
+        -int glowDuration
+        -List~String~ whitelistedAnimals
+        -String whistleSound
+        -float soundVolume
+        -float soundPitch
+        +AnimalWhistleConfig(plugin: JavaPlugin)
+        +getAnimalWhistlePath() String
+        +getDetectionRadius() double
+        +getGlowDuration() int
+        +getWhitelistedAnimals() List~String~
+        +getWhistleSound() String
+        +getSoundVolume() float
+        +getSoundPitch() float
+    }
+
+    class WhistleInteractListener {
+        -JavaPlugin plugin
+        -ItemAPI api
+        -AnimalWhistleConfig config
+        +WhistleInteractListener(plugin: JavaPlugin, api: ItemAPI, config: AnimalWhistleConfig)
+        +onPlayerInteract(event: PlayerInteractEvent) void
+        -isAnimalWhistle(item: ItemStack) boolean
+        -playWhistleSound(player: Player) void
+    }
+
+    AnimalWhistle "1" --> "1" AnimalWhistleConfig : creates
+    AnimalWhistle "1" --> "1" WhistleInteractListener : registers
+    
+    WhistleInteractListener "1" --> "1" AnimalWhistleConfig : uses
+    WhistleInteractListener "1" --> "1" ItemAPI : uses
