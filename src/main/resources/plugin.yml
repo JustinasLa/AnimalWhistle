@@ -1,0 +1,6 @@
+main: tfmc.justin.AnimalWhistle
+version: 1.0.0
+name: AnimalWhistle
+author: Justin
+api-version: 1.21
+depend: [TLibs]
