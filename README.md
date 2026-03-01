@@ -32,7 +32,7 @@ A Minecraft Paper plugin that lets players use a special whistle item to highlig
 items:
   animal-whistle: "m.pets.animal_whistle"
   # Vanilla item example: "v.iron_ingot"
-  # ItemsAdder item example: ia.tfmc.animal_whistle
+  # ItemsAdder item example: "ia.tfmc.animal_whistle"
 
 # Feature settings
 settings:
